@@ -1,0 +1,63 @@
+{
+  "name": "ms-formularios-cooperativa",
+  "version": "1.0.0",
+  "description": "microservicio de formularios para sistema de administración de negocios de Radio Cooperativa",
+  "scripts": {
+    "start": "node ./server.js",
+    "dev": "cross-env NODE_ENV=dev node ./server.js",
+    "debug": "cross-env NODE_ENV=debug nodemon --inspect ./server.js",
+    "test": "mocha",
+    "lint": "eslint .",
+    "precommit": "npm run lint",
+    "start:watch": "nodemon ./server.js",
+    "integration-test": "cross-env API_URI=http://localhost cross-env API_PORT=3016  mocha --timeout 20000 src/test/index.js --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RadioCooperativa/ms-formularios-cooperativa.git"
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "ignore": [
+      "*.test.js",
+      "test/*",
+      "docker-compose*.*"
+    ],
+    "delay": "2500"
+  },
+  "author": "Radio Cooperativa",
+  "license": "ISC",
+  "dependencies": {
+    "async": "2.6.0",
+    "dotenv": "7.0.0",
+    "dotenv-safe": "6.1.0",
+    "http-status": "^1.3.2",
+    "joi": "^14.3.1",
+    "moment": "2.24.0",
+    "mysql2": "1.6.5",
+    "node-cache": "^4.2.0",
+    "node-env": "0.1.6",
+    "node-fetch": "^2.6.0",
+    "npm": "6.9.0",
+    "restify": "8.3.0",
+    "restify-cors-middleware": "^1.1.1",
+    "restify-errors": "7.0.0",
+    "restify-router": "^0.5.1",
+    "restify-url-semver": "^1.1.1"
+  },
+  "devDependencies": {
+    "chai": "4.1.2",
+    "cross-env": "5.1.4",
+    "eslint": "5.16.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-xo-space": "0.21.0",
+    "eslint-plugin-import": "2.17.2",
+    "eslint-plugin-react": "7.12.4",
+    "mocha": "6.1.4",
+    "nodemon": "1.18.11"
+  },
+  "bugs": {
+    "url": "https://github.com/RadioCooperativa/ms-formularios-cooperativa/issues"
+  },
+  "homepage": "https://github.com/RadioCooperativa/ms-formularios-cooperativa#readme"
+}

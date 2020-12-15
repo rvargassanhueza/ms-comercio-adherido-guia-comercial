@@ -1,0 +1,71 @@
+const fetch = require('node-fetch');
+
+const URL_BASE = "http://localhost:3002/v1/";
+
+async function getCategoria()
+{
+    try
+    {
+        let response_1 = await fetch(`${URL_BASE}mainData/categoria/`);
+        return response_1.json();
+    }
+    catch(Error)
+    {
+        console.error(Error);
+    }
+}
+
+async function getSubCategoria()
+{
+    try
+    {
+        let response_1 = await fetch(`${URL_BASE}mainData/subCategoria/`);
+        return response_1.json();
+    }
+    catch(Error)
+    {
+        console.error(Error);
+    }
+}
+
+async function getCliente()
+{
+    try
+    {
+        let response_1 = await fetch(`${URL_BASE}mainData/cliente/`);
+        return response_1.json();
+    }
+    catch(Error)
+    {
+        console.error(Error);
+    }
+}
+
+async function getLocalidad()
+{
+    try
+    {
+        let response_1 = await fetch(`${URL_BASE}mainData/localidad/`);
+        return response_1.json();
+    }
+    catch(Error)
+    {
+        console.error(Error);
+    }
+}
+
+async function dataObject(){
+    const categoria = await getCategoria();
+    const cliente = await getCliente();
+    const localidad = await getLocalidad();
+    const subCategoria = await getSubCategoria();
+
+    return {
+        categoria,
+        cliente,
+        localidad,
+        subCategoria
+    };
+}
+
+module.exports = {dataObject}
