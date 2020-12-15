@@ -9,21 +9,14 @@ const mapMainData = require('../../helpers/map/map')
 let _get = async function (req, res, next) {
     try {
 
-        const cache = await cacheApiMainData.getCacheMainData('key-data');
         const result = await comAdhServices.get();
-
-            if (cache){
                 if (result == null) {
                         res.json(httpStatus.NOT_FOUND);
                         res.end();
                         return;
                     }else{
-                        const maping = await mapMainData.map(result,cache);
-                        res.json(httpStatus.OK, maping);
-
+                        res.json(httpStatus.OK, result);
                     }
-            }
-
     } catch (err) {
         res.send(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify({Error: httpStatus.INTERNAL_SERVER_ERROR, Message: constants.Error.INTERNALERROR}) );
     }
@@ -31,11 +24,30 @@ let _get = async function (req, res, next) {
 
 let _getId = async function (req, res, next) {
     try {
-        // const id = req.params.id
         const { params } = req;
         const { id } = params;
-        const cache = await cacheApiMainData.getCacheMainData('key-data');
         const result = await comAdhServices.getId(id);
+
+                if (result == null) {
+                        res.json(httpStatus.NOT_FOUND);
+                        res.end();
+                        return;
+                    }else{
+                        res.json(httpStatus.OK, result);
+                        res.end();
+                    }
+    } catch (err) {
+        res.send(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify({Error: httpStatus.INTERNAL_SERVER_ERROR, Message: constants.Error.INTERNALERROR}) );
+    }
+};
+
+let getComAdhCategoriaId = async function (req, res, next) {
+    try {
+        const { params } = req;
+        const { idCategoria } = params;
+        const cache = await cacheApiMainData.getCacheMainData('key-data');
+        const result = await comAdhServices.get();
+        const result_ = await comAdhServices.getNomComAdhCategoriaId(idCategoria);
 
             if (cache){
                 if (result == null) {
@@ -43,10 +55,10 @@ let _getId = async function (req, res, next) {
                         res.end();
                         return;
                     }else{
-                        const maping = await mapMainData.map(result,cache);
+                        const maping = await mapMainData.map(result,cache,result_);
                         res.json(httpStatus.OK, maping);
-
-                    }
+                        res.end();
+                    }    
             }
 
             if (result === null) {
@@ -54,9 +66,7 @@ let _getId = async function (req, res, next) {
                 res.end();
                 return;
             }
-
         res.json(httpStatus.OK, result);
-        res.end();
     } catch (err) {
         res.send(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify({Error: httpStatus.INTERNAL_SERVER_ERROR, Message: constants.Error.INTERNALERROR}) );
     }
@@ -123,6 +133,7 @@ let _delete = async function (req, res, next){
 module.exports = {
     get: _get,
     getId: _getId,
+    getComAdhCategoriaId:getComAdhCategoriaId,
     insertComAdh: _insert,
     updateComAdh: _update,
     deleteComAdh: _delete

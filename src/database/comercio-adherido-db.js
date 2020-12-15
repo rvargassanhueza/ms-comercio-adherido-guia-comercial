@@ -29,6 +29,28 @@ async function getId(id){
       return result[0];
 }
 
+async function getComAdhCategoriaId(id){
+  let query = 'SELECT * FROM T_PASO_COMERCIO_ADHERIDO_CATEGORIA WHERE ID_COMERCIO_ADHERIDO = '+id+'';  
+  const result = await pool.query(query);
+
+  if (result[0].length === 0) {
+      return null;
+    }
+    
+    return result[0];
+}
+
+async function getNomComAdhCategoriaId(id){
+  let query = 'SELECT DISTINCT pca.id_categoria, ca.id_comercio_adherido, ca.nombre_comercio_adherido FROM T_COMERCIO_ADHERIDO ca INNER JOIN T_PASO_COMERCIO_ADHERIDO_CATEGORIA pca ON ca.id_comercio_adherido = pca.id_comercio_adherido AND pca.id_categoria = '+id+'';  
+  const result = await pool.query(query);
+
+  if (result[0].length === 0) {
+      return null;
+    }
+    
+    return result[0];
+}
+
 async function insertComAdh(params){
 
 const connection = await pool.getConnection();
@@ -110,6 +132,8 @@ async function deleteComAdh(id){
 module.exports = {
   get: get,
   getId: getId,
+  getComAdhCategoriaId:getComAdhCategoriaId,
+  getNomComAdhCategoriaId:getNomComAdhCategoriaId,
     insertComAdh: insertComAdh,
     updateComAdh: updateComAdh,
     deleteComAdh: deleteComAdh

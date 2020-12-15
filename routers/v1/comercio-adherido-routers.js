@@ -15,6 +15,13 @@ module.exports.register = (server) => {
     methods.getId
     );
 
+    server.get({
+        path: '/comercioAdherido/categoria/:idCategoria',
+        version: '1.0.0'
+    },
+    methods.getComAdhCategoriaId
+    );
+
     server.post({
         path: '/comercioAdherido/',
         version: '1.0.0',
