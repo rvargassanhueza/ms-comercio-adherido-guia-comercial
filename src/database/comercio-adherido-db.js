@@ -19,7 +19,7 @@ async function get(){
 }
 
 async function getId(id){
-    let query = 'SELECT * FROM T_FORMULARIOS WHERE ID_FORMULARIO = '+id+' AND vigente = 0';  
+    let query = 'SELECT * FROM T_COMERCIO_ADHERIDO WHERE ID_COMERCIO_ADHERIDO = '+id+' AND vigente = 0';  
     const result = await pool.query(query);
 
     if (result[0].length === 0) {
@@ -29,8 +29,8 @@ async function getId(id){
       return result[0];
 }
 
-async function getComAdhCategoriaId(id){
-  let query = 'SELECT * FROM T_PASO_COMERCIO_ADHERIDO_CATEGORIA WHERE ID_COMERCIO_ADHERIDO = '+id+'';  
+async function getComAdhCategoriaId(){
+  let query = 'SELECT * FROM T_PASO_COMERCIO_ADHERIDO_CATEGORIA';  
   const result = await pool.query(query);
 
   if (result[0].length === 0) {

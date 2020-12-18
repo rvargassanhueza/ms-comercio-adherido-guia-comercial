@@ -72,6 +72,39 @@ let getComAdhCategoriaId = async function (req, res, next) {
     }
 };
 
+let getComAdhSubCategoriaId = async function (req, res, next) {
+    try {
+        const { params } = req;
+        const { idSubCategoria } = params;
+        const cache = await cacheApiMainData.getCacheMainData('key-data');
+        const resultComercioAdherido = await comAdhServices.get();
+        // const result_ = await comAdhServices.getNomComAdhCategoriaId(idSubCategoria);
+        let resultComAdhCategoria = await comAdhServices.getComAdhCategoriaId();
+        
+
+            if (cache){
+                if (resultComercioAdherido == null) {
+                        res.json(httpStatus.NOT_FOUND);
+                        res.end();
+                        return;
+                    }else{
+                        const maping = await mapMainData.mapAsoc(resultComercioAdherido,cache, idSubCategoria, resultComAdhCategoria);
+                        res.json(httpStatus.OK, maping);
+                        res.end();
+                    }    
+            }
+
+            if (resultComercioAdherido === null) {
+                res.json(httpStatus.NOT_FOUND);
+                res.end();
+                return;
+            }
+        res.json(httpStatus.OK, resultComercioAdherido);
+    } catch (err) {
+        res.send(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify({Error: httpStatus.INTERNAL_SERVER_ERROR, Message: constants.Error.INTERNALERROR}) );
+    }
+};
+
 let _insert = async function (req, res, next){
     try{
         const { params } = req;
@@ -134,6 +167,7 @@ module.exports = {
     get: _get,
     getId: _getId,
     getComAdhCategoriaId:getComAdhCategoriaId,
+    getComAdhSubCategoriaId:getComAdhSubCategoriaId,
     insertComAdh: _insert,
     updateComAdh: _update,
     deleteComAdh: _delete

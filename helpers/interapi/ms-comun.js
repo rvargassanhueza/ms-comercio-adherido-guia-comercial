@@ -28,6 +28,19 @@ async function getSubCategoria()
     }
 }
 
+async function getAsocCatSubCategoria()
+{
+    try
+    {
+        let response_1 = await fetch(`${URL_BASE}mainData/categoria-sub_categoria/`);
+        return response_1.json();
+    }
+    catch(Error)
+    {
+        console.error(Error);
+    }
+}
+
 async function getCliente()
 {
     try
@@ -59,12 +72,14 @@ async function dataObject(){
     const cliente = await getCliente();
     const localidad = await getLocalidad();
     const subCategoria = await getSubCategoria();
+    const asocSubCat_Cat = await getAsocCatSubCategoria();
 
     return {
         categoria,
         cliente,
         localidad,
-        subCategoria
+        subCategoria,
+        asocSubCat_Cat
     };
 }
 

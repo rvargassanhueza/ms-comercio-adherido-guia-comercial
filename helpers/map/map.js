@@ -1,8 +1,9 @@
+const { func } = require("joi");
+
 async function map(data_, cacheData, result_){
 
-    const {categoria, cliente, localidad, subcategoria } = cacheData;
+    const {categoria } = cacheData;
     const {data:dataCategoria} = categoria;
-    const {data:dataLocalidad} = localidad;
 
         try
         {
@@ -10,12 +11,7 @@ async function map(data_, cacheData, result_){
             let finalDataObject = [];
             let objectComercioAdherido = {};
              data_.map(function(e){
-                    dataObject = {
-                            // id_comercio_adherido:e.id_comercio_adherido,
-                            // id_categoria: e.id_categoria
-                            
-                    }
-                    
+                    dataObject = {}
                     dataCategoria.map(function (f){
                         result_.map(function(t){
                             if(e.id_comercio_adherido === t.id_comercio_adherido && t.id_categoria === f.id_categoria){
@@ -41,4 +37,45 @@ async function map(data_, cacheData, result_){
         console.error(Error);
     }
 }
-module.exports = {map}
+
+async function mapAsoc(resultComercioAdherido, cacheData, idSubCategoria, resultComAdhCategoria){
+
+    const {subCategoria, asocSubCat_Cat}    = cacheData;
+    const {data:dataSubCategoria}           = subCategoria;
+    const {data:dataAsocSubCat_Cat}         = asocSubCat_Cat;
+
+    try
+        {
+            let arrayComercioAdherido = [];
+            let objetoComercioAdherido = {};
+                resultComercioAdherido.map(function(a){
+                    resultComAdhCategoria.map(function(b){
+                        dataAsocSubCat_Cat.map(function (c){
+                            dataSubCategoria.map(function (d){
+                                            if(d.id_sub_categoria == idSubCategoria){
+                                                if(idSubCategoria == c.id_sub_categoria){
+                                                    if(c.id_categoria === b.id_categoria ){
+                                                        if(b.id_comercio_adherido === a.id_comercio_adherido){
+                                                            objetoComercioAdherido = {
+                                                                'comercioAdherido':{
+                                                                        id_comercio_adherido: a.id_comercio_adherido,
+                                                                        nombre_comercio_adherido: a.nombre_comercio_adherido
+                                                                }
+                                                            }
+                                                            arrayComercioAdherido.push(objetoComercioAdherido);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    });
+                                });
+                            });
+            return arrayComercioAdherido;
+        }
+        catch(Error)
+        {
+            console.error(Error);
+        }
+}
+module.exports = {map, mapAsoc}
