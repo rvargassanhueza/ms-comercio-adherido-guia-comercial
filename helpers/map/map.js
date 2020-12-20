@@ -78,4 +78,39 @@ async function mapAsoc(resultComercioAdherido, cacheData, idSubCategoria, result
             console.error(Error);
         }
 }
-module.exports = {map, mapAsoc}
+
+async function mapLocalidadComAdh(resultComercioAdherido, cacheData, idLocalidad, resultComAdhLocalidad){
+
+    const {localidad}    = cacheData;
+    const {data:dataLocalidad}           = localidad;
+    try
+        {
+            let arrayComercioAdherido = [];
+            let objetoComercioAdherido = {};
+                resultComercioAdherido.map(function(a){
+                    resultComAdhLocalidad.map(function(b){
+                        dataLocalidad.map(function (c){
+                                                if(idLocalidad == c.id_localidad){
+                                                    if(c.id_localidad === b.id_localidad ){
+                                                        if(b.id_comercio_adherido === a.id_comercio_adherido){
+                                                            objetoComercioAdherido = {
+                                                                'comercioAdherido':{
+                                                                        id_comercio_adherido: a.id_comercio_adherido,
+                                                                        nombre_comercio_adherido: a.nombre_comercio_adherido
+                                                                }
+                                                            }
+                                                            arrayComercioAdherido.push(objetoComercioAdherido);
+                                                        }
+                                                    }
+                                            }
+                                    });
+                                });
+                            });
+            return arrayComercioAdherido;
+        }
+        catch(Error)
+        {
+            console.error(Error);
+        }
+}
+module.exports = {map, mapAsoc, mapLocalidadComAdh}

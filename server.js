@@ -17,7 +17,7 @@ const restify = require('restify');
 const versioning = require('restify-url-semver');
 
 const server = restify.createServer({
-  name : `Formulario Api v:${API_CURRENT_VERSION}`,
+  name : `Comercio Adherido Api v:${API_CURRENT_VERSION}`,
   acceptable: 'application/json',
   versions: [API_MIN_VERSION, API_CURRENT_VERSION],
   version: API_CURRENT_VERSION,
@@ -47,10 +47,7 @@ server.use(validator.paramValidation(joi));
 handler.register(server);
 
 // Setup route Handling
-// const tipoFormularioRouters = require('./routers/v1/tipo-formulario-routers');
 const comercioAdheridoRouters = require('./routers/v1/comercio-adherido-routers');
-
-// tipoFormularioRouters.register(server);
 comercioAdheridoRouters.register(server);
 
 
