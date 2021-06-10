@@ -67,4 +67,6 @@ const port = process.env.API_PORT || 3001;
 
 server.listen(port, () => {
   console.log({ name: "Server startup", properties: { version: API_CURRENT_VERSION, date: moment.utc().format() } });
+  console.log("Port: "+port);
+
 });
