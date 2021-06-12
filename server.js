@@ -65,8 +65,12 @@ server.use(cors.actual);
 
 const port = process.env.API_PORT || 3001;
 
-server.listen(port, () => {
-  console.log({ name: "Server startup", properties: { version: API_CURRENT_VERSION, date: moment.utc().format() } });
-  console.log("Port: "+port);
+const ipaddress = process.env.IP;
 
-});
+
+server.listen(process.env.PORT || port, ipaddress, function () {
+  console.log('Server %s listening at %s', server.name, server.url)
+  // console.log('Resources:')
+  // console.log(' /patients')
+  // console.log(' /patients/:id')
+})
