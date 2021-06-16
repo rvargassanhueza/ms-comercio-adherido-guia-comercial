@@ -54,7 +54,7 @@ comercioAdheridoRouters.register(server);
 
 const cors = corsMiddleware({
   preflightMaxAge: 5,
-  origins: ['http://localhost:5001'],
+  origins: ['http://localhost:4200'],
   allowHeaders: ['Authorization'],
   allowMethods: ['*'],
   exposeHeaders: ['API-Token-Expiry']
