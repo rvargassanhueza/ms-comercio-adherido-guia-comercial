@@ -69,7 +69,7 @@ await connection.beginTransaction();
 const fecha_creacion = {fecha_creacion: new Date()};
 
 const { data, dataArrayCategorias } = params;
-const { nombre_comercio_adherido, descripcion_comercio_adherido, direccion_comercio_adherido, numero_direccion_comercio_adherido, detalle_comercio_adherido,  url_facebook_comercio_adherido, url_twitter_comercio_adherido, url_youtube_comercio_adherido, url_whatsapp_comercio_adherido, url_instagram_comercio_adherido, url_web_comercio_adherido, id_localidad, id_cliente} = data; 
+const { nombre_comercio_adherido, descripcion_comercio_adherido, direccion_comercio_adherido, numero_direccion_comercio_adherido, detalle_comercio_adherido,  url_facebook_comercio_adherido, url_twitter_comercio_adherido, url_youtube_comercio_adherido, url_whatsapp_comercio_adherido, url_instagram_comercio_adherido, url_web_comercio_adherido, id_localidad, id_cliente,categorias} = data; 
 
 let queryComAdh_Categoria;
 let id_categoria;
@@ -88,9 +88,9 @@ try {
 
     const lastIdComAdh = resultForm[0].insertId;
 
-    for (let i= 0; i< dataArrayCategorias.length; i++){
+    for (let i= 0; i< categorias.length; i++){
       queryComAdh_Categoria = 'INSERT INTO T_PASO_COMERCIO_ADHERIDO_CATEGORIA SET id_comercio_adherido = ?, id_categoria = ?';
-      id_categoria = dataArrayCategorias[i];
+      id_categoria = categorias[i];
       await connection.query(queryComAdh_Categoria, [lastIdComAdh, id_categoria]);
   }
         
