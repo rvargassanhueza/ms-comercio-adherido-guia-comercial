@@ -82,6 +82,7 @@ try {
 
     let queryComAdh_Localidad = 'INSERT INTO T_PASO_COMERCIO_ADHERIDO_LOCALIDAD SET id_comercio_adherido = ?, id_localidad = ?';
 
+//PENDIENTE INSERTAR EN SUB-CATEGORÍAS
 
     const resultForm = await connection.query(queryComAdh,[nombre_comercio_adherido, descripcion_comercio_adherido, direccion_comercio_adherido, numero_direccion_comercio_adherido, detalle_comercio_adherido, url_facebook_comercio_adherido, url_twitter_comercio_adherido, url_youtube_comercio_adherido, url_whatsapp_comercio_adherido, url_instagram_comercio_adherido, url_web_comercio_adherido, fecha_creacion.fecha_creacion, null, null, null, 0]);
 
