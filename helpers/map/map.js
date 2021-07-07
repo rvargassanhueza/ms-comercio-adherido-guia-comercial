@@ -38,6 +38,62 @@ async function map(data_, cacheData, result_){
     }
 }
 
+async function mapLocalidad(data_, cacheData){
+
+    const {localidad,categoria,cliente} = cacheData;
+    const {data:dataLocalidad} = localidad;
+    const {data:dataCategoria} = categoria;
+    const {data:dataCliente} = cliente;
+
+
+        try
+        {
+            let dataObject = {};
+            let finalDataObject = [];
+            let objectComercioAdherido = {};
+             data_.map(function(e){
+                dataObject = {}
+                    dataLocalidad.map(function (t){
+                        dataCliente.map(function (f){
+                            dataCategoria.map(function (d){
+
+                        if(e.id_localidad === t.id_localidad){
+                            if(e.id_categoria === d.id_categoria){
+                                if(e.id_cliente === f.id_cliente)
+                                    dataObject={
+                                        'id_comercio_adherido':e.id_comercio_adherido,
+                                            'nombre_comercio_adherido':e.nombre_comercio_adherido,
+                                            'descripcion_comercio_adherido':e.descripcion_comercio_adherido,
+                                            'direccion_comercio_adherido':e.direccion_comercio_adherido,
+                                            'numero_direccion_comercio_adherido':e.numero_direccion_comercio_adherido,
+                                            'nombre_localidad':t.nombre_localidad,
+                                            'nombre_cliente':f.nombre_cliente,
+                                            'nombre_categoria':d.nombre_categoria,
+                                            'url_facebook_comercio_adherido':e.url_facebook_comercio_adherido,
+                                            'url_twitter_comercio_adherido':e.url_twitter_comercio_adherido,
+                                            'url_youtube_comercio_adherido':e.url_youtube_comercio_adherido,
+                                            'url_whatsapp_comercio_adherido':e.url_whatsapp_comercio_adherido,
+                                            'url_instagram_comercio_adherido':e.url_instagram_comercio_adherido,
+                                            'url_web_comercio_adherido':e.url_web_comercio_adherido,
+                                        
+                                    }
+                                }
+                            }
+                        })
+                    })
+                })      
+
+                finalDataObject.push(dataObject);
+            });
+
+        return finalDataObject;
+    }
+    catch(Error)
+    {
+        console.error(Error);
+    }
+}
+
 async function mapAsoc(resultComercioAdherido, cacheData, idSubCategoria, resultComAdhCategoria){
 
     const {subCategoria, asocSubCat_Cat}    = cacheData;
@@ -113,4 +169,4 @@ async function mapLocalidadComAdh(resultComercioAdherido, cacheData, idLocalidad
             console.error(Error);
         }
 }
-module.exports = {map, mapAsoc, mapLocalidadComAdh}
+module.exports = {map, mapLocalidad, mapAsoc, mapLocalidadComAdh}
