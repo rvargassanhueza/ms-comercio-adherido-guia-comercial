@@ -62,14 +62,14 @@ async function getNomComAdhCategoriaId(id){
     return result[0];
 }
 
-async function insertComAdh(params){
+async function insertComAdh(params,new_path){
 
 const connection = await pool.getConnection();
 await connection.beginTransaction();
 const fecha_creacion = {fecha_creacion: new Date()};
 
 // const { data, dataArrayCategorias } = params;
-const { nombre_comercio_adherido, descripcion_comercio_adherido, direccion_comercio_adherido, numero_direccion_comercio_adherido, detalle_comercio_adherido,  url_facebook_comercio_adherido, url_twitter_comercio_adherido, url_youtube_comercio_adherido, url_whatsapp_comercio_adherido, url_instagram_comercio_adherido, url_web_comercio_adherido, id_localidad, id_cliente,categorias} = params; 
+const { nombre_comercio_adherido, descripcion_comercio_adherido, direccion_comercio_adherido, numero_direccion_comercio_adherido,  url_facebook_comercio_adherido, url_twitter_comercio_adherido, url_youtube_comercio_adherido, url_whatsapp_comercio_adherido, url_instagram_comercio_adherido, url_web_comercio_adherido, id_localidad, id_cliente,categorias} = params; 
 
 let queryComAdh_Categoria;
 let id_categoria;
@@ -84,7 +84,7 @@ try {
 
 //PENDIENTE INSERTAR EN SUB-CATEGORÍAS
 
-    const resultForm = await connection.query(queryComAdh,[nombre_comercio_adherido, descripcion_comercio_adherido, direccion_comercio_adherido, numero_direccion_comercio_adherido, detalle_comercio_adherido, url_facebook_comercio_adherido, url_twitter_comercio_adherido, url_youtube_comercio_adherido, url_whatsapp_comercio_adherido, url_instagram_comercio_adherido, url_web_comercio_adherido, fecha_creacion.fecha_creacion, null, null, null, 0]);
+    const resultForm = await connection.query(queryComAdh,[nombre_comercio_adherido, descripcion_comercio_adherido, direccion_comercio_adherido, numero_direccion_comercio_adherido, new_path, url_facebook_comercio_adherido, url_twitter_comercio_adherido, url_youtube_comercio_adherido, url_whatsapp_comercio_adherido, url_instagram_comercio_adherido, url_web_comercio_adherido, fecha_creacion.fecha_creacion, null, null, null, 0]);
 
     const lastIdComAdh = resultForm[0].insertId;
 

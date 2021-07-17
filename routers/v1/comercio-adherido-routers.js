@@ -1,5 +1,9 @@
 'use strict';
-var methods = require('../../src/controllers/comercio-adherido-methods');
+const methods = require('../../src/controllers/comercio-adherido-methods');
+// const multer = require('multer');
+// const path = require('path');
+const upload = require('./../../helpers/libs/storage');
+
 
 module.exports.register = (server) => {
     server.get({
@@ -36,16 +40,11 @@ module.exports.register = (server) => {
     methods.getComAdhLocalidad
     );
 
-    server.post({
-        path: '/comercioAdherido/',
-        version: '1.0.0',
-        validation: {
-            // params: require('../../src/validators/comercioAdherido/insert')
-        },
-    },
-    methods.insertComAdh
+    // server.post({path: '/comercioAdherido/',version: '1.0.0'}, upload.single('detalle_comercio_adherido'),methods.insertComAdh)
+    server.post('/comercioAdherido/',
+        
+        methods.insertComAdh
     );
-
     server.put({
         path: '/comercioAdherido/:id',
         version: '1.0.0',
