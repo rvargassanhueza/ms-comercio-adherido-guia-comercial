@@ -1,9 +1,5 @@
 'use strict';
 const methods = require('../../src/controllers/comercio-adherido-methods');
-// const multer = require('multer');
-// const path = require('path');
-const upload = require('./../../helpers/libs/storage');
-
 
 module.exports.register = (server) => {
     server.get({
