@@ -5,16 +5,13 @@ const httpStatus = require('http-status');
 const constants = require('../../common/const');
 const cacheApiMainData = require('../../helpers/cache/cache');
 const mapMainData = require('../../helpers/map/map');
-const mv = require('mv');
-
-let new_path;
+const uploadToS3 = require('./../../helpers/libs/aws-s3')
 
 let _get = async function (req, res, next) {
     try {
 
         const result = await comAdhServices.get();
         const cache = await cacheApiMainData.getCacheMainData('key-data');
-
 
         if (cache){
             if (result == null) {
@@ -170,42 +167,26 @@ let getComAdhLocalidad = async function (req, res, next) {
         res.send(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify({Error: httpStatus.INTERNAL_SERVER_ERROR, Message: constants.Error.INTERNALERROR}) );
     }
 };
-            let _insert = async function (req, res, next){
-                try{
-                    const { params } = req;
-                    if(typeof req.files.detalle_comercio_adherido === 'object'){
-                        await upload(req.files.detalle_comercio_adherido);
-                            let result = await comAdhServices.insertComAdh(params,new_path);
-                                if(result === null){
-                                    res.json(httpStatus.NOT_FOUND);
-                                    res.end();
-                                    return;
-                                }
-                                res.json(httpStatus.CREATED, result[0]);
-                                res.end();
-                        }
-                }catch(err){
-                    res.send(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify({Error: httpStatus.INTERNAL_SERVER_ERROR, Message: constants.Error.INTERNALERROR}) );
-                }
-            }; 
-
-            async function upload(data){
-                let name = data.name.split(".");
-                const extension = name[name.length - 1];
-                
-                if(extension === 'png' || extension === 'jpg' || extension === 'jpeg'){
-                     new_path = `./storage/img/${new Date().getTime()}.${extension}`;
-                    return mv(data.path, new_path, {
-                                mkdirp:true
-                                    }, (err,result)=>{
-                            if(err)
-                                throw err;
-                    });
-                }else{
-                    return false;
-                }
-                
+let _insert = async function (req, res, next){
+    try{
+        const { params } = req;
+        if(typeof req.files.detalle_comercio_adherido === 'object'){
+             let upload = await uploadToS3(req.files.detalle_comercio_adherido);
+             let result = await comAdhServices.insertComAdh(params,upload.message);
+                   
+             if(result === null){
+                        res.json(httpStatus.NOT_FOUND);
+                        res.end();
+                        return;
+                    }
+                    res.json(httpStatus.CREATED, result[0]);
+                    res.end();
+            }
+    }catch(err){
+        res.send(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify({ErrohttpStatus.INTERNAL_SERVER_ERROR, Message: constants.Error.INTERNALERROR};
     }
+}; 
+
 let _update = async function (req, res, next){
     try{
         const { params } = req;
