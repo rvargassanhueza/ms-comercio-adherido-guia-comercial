@@ -183,7 +183,7 @@ let _insert = async function (req, res, next){
                     res.end();
             }
     }catch(err){
-        res.send(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify({ErrohttpStatus.INTERNAL_SERVER_ERROR, Message: constants.Error.INTERNALERROR};
+        res.send(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify({Error: httpStatus.INTERNAL_SERVER_ERROR, Message: constants.Error.INTERNALERROR}) );
     }
 }; 
 
