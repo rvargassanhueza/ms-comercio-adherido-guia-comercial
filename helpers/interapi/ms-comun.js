@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const URL_BASE = "http://localhost:3002/v1/";
+const URL_BASE = "https://app-comun.herokuapp.com/v1/";
 
 async function getCategoria()
 {

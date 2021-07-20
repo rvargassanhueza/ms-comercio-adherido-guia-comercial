@@ -10,6 +10,7 @@ const uploadToS3 = (fileName) => {
         };
         
         const fileContent = fs.readFileSync(fileName.path);
+        
         const params = {
                     Bucket: AWSCredentials.bucketName,
                     Key: fileName.name,
