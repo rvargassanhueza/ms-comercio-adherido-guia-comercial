@@ -61,7 +61,7 @@
         server.pre(cors.preflight);
         server.use(cors.actual);
 
-        const port = process.env.API_PORT || 3001;
+        const port = process.env.API_PORT || 3004;
 
         const ipaddress = process.env.IP;
 

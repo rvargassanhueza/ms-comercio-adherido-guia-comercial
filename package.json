@@ -41,7 +41,7 @@
     "node-env": "0.1.6",
     "node-fetch": "^2.6.0",
     "npm": "6.9.0",
-    "restify": "8.3.0",
+    "restify": "^11.1.0",
     "restify-cors-middleware": "^1.1.1",
     "restify-errors": "7.0.0",
     "restify-router": "^0.5.1",

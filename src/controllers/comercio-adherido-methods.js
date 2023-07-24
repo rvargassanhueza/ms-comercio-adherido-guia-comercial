@@ -7,7 +7,7 @@ const cacheApiMainData = require('../../helpers/cache/cache');
 const mapMainData = require('../../helpers/map/map');
 const uploadToS3 = require('./../../helpers/libs/aws-s3')
 
-let _get = async function (req, res, next) {
+let _get = async function (req, res) {
     try {
 
         const result = await comAdhServices.get();
@@ -36,7 +36,7 @@ let _get = async function (req, res, next) {
     }
 };
 
-let _getId = async function (req, res, next) {
+let _getId = async function (req, res) {
     try {
         const { params } = req;
         const { id } = params;
@@ -67,7 +67,7 @@ let _getId = async function (req, res, next) {
     }
 };
 
-let getComAdhCategoriaId = async function (req, res, next) {
+let getComAdhCategoriaId = async function (req, res) {
     try {
         const { params } = req;
         const { idCategoria } = params;
@@ -98,7 +98,7 @@ let getComAdhCategoriaId = async function (req, res, next) {
     }
 };
 
-let getComAdhSubCategoriaId = async function (req, res, next) {
+let getComAdhSubCategoriaId = async function (req, res) {
     try {
         const { params } = req;
         const { idSubCategoria } = params;
@@ -131,7 +131,7 @@ let getComAdhSubCategoriaId = async function (req, res, next) {
     }
 };
 
-let getComAdhLocalidad = async function (req, res, next) {
+let getComAdhLocalidad = async function (req, res) {
     try {
         const { params } = req;
         const { idLocalidad } = params;
@@ -167,7 +167,7 @@ let getComAdhLocalidad = async function (req, res, next) {
         res.send(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify({Error: httpStatus.INTERNAL_SERVER_ERROR, Message: constants.Error.INTERNALERROR}) );
     }
 };
-let _insert = async function (req, res, next){
+let _insert = async function (req, res){
     try{
         const { params } = req;
         if(typeof req.files.detalle_comercio_adherido === 'object'){
@@ -187,7 +187,7 @@ let _insert = async function (req, res, next){
     }
 }; 
 
-let _update = async function (req, res, next){
+let _update = async function (req, res){
     try{
         const { params } = req;
         let result = await comAdhServices.updateComAdh(params);
@@ -206,7 +206,7 @@ let _update = async function (req, res, next){
     }
 };
 
-let _delete = async function (req, res, next){
+let _delete = async function (req, res){
     try{
         const { params:{id} } = req;
         let result = await comAdhServices.deleteComAdh(id);

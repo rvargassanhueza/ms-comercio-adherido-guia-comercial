@@ -4,7 +4,7 @@ const tFormServices = require('../database/tipo-formulario-db');
 const httpStatus = require('http-status');
 const constants = require('../../common/const');
 
-let _get = async function (req, res, next) {
+let _get = async function (req, res) {
     try {
         let result = await tFormServices.getTipoForm();
         if (result == null) {
@@ -19,7 +19,7 @@ let _get = async function (req, res, next) {
     }
 };
 
-let _getId = async function (req, res, next) {
+let _getId = async function (req, res) {
     try {
         const id = req.params.id
         let result = await tFormServices.getTipoFormId(id);
@@ -36,7 +36,7 @@ let _getId = async function (req, res, next) {
     }
 };
 
-let _insert = async function (req, res, next){
+let _insert = async function (req, res){
     try{
         const { params } = req;
         let result = await tFormServices.insertTipoForm(params);
@@ -55,7 +55,7 @@ let _insert = async function (req, res, next){
     }
 };
 
-let _update = async function (req, res, next){
+let _update = async function (req, res){
     try{
         const { params } = req;
         let result = await tFormServices.updateTipoForm(params);
@@ -74,7 +74,7 @@ let _update = async function (req, res, next){
     }
 };
 
-let _delete = async function (req, res, next){
+let _delete = async function (req, res){
     try{
         const { params:{id} } = req;
         let result = await tFormServices.deleteTipoForm(id);
